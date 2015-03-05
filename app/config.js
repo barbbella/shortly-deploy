@@ -42,4 +42,5 @@ db.knex.schema.hasTable('users').then(function(exists) {
   }
 });
 
+// connection and table creation
 module.exports = db;
