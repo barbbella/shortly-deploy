@@ -40,7 +40,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      all: ['public/client/*.js'],
+      all: ['public/client/*.js', '*.js', 'app/*.js', 'app/collections/*.js', 'app/models/*.js', 'lib/*.js'],
       options: {
         jshintrc: '.jshintrc',
         ignores: [
