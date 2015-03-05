@@ -110,26 +110,24 @@ module.exports = function(grunt) {
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
-  // grunt.registerTask('default', ['concat', 'uglify']);
-
   grunt.registerTask('test', [
     'mochaTest'
   ]);
 
   grunt.registerTask('build', [
-    'concat', 'jshint', 'uglify', 'cssmin'
+    'test', 'concat', 'jshint', 'uglify', 'cssmin'
   ]);
 
-  grunt.registerTask('upload', function(n) {
-    if(grunt.option('prod')) {
+  grunt.registerTask('upload', function(n) {    // grunt deploy --prod
+    if(grunt.option('prod')) {                      // prod --> azure
       // add your production server task here
     } else {
-      grunt.task.run([ 'server-dev' ]);
+      grunt.task.run([ 'server-dev' ]);              // else (grunt deploy) --> local database / dev environment
     }
   });
 
   grunt.registerTask('deploy', [
-    // add your deploy tasks here
+    'build', 'upload'
   ]);
 
 
