@@ -80,8 +80,14 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git push azure master',
+        options: {
+          stdout: true,
+          stderr: true,
+          failOnError: true
+        }
       }
-    },
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -111,23 +117,23 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
-    'mochaTest'
+    'jshint', 'mochaTest'
   ]);
 
   grunt.registerTask('build', [
-    'test', 'concat', 'jshint', 'uglify', 'cssmin'
+    'concat', 'uglify', 'cssmin'
   ]);
 
   grunt.registerTask('upload', function(n) {    // grunt deploy --prod
-    if(grunt.option('prod')) {                      // prod --> azure
-      // add your production server task here
+    if(grunt.option('prod')) {
+      grunt.task.run([ 'shell:prodServer' ]);
     } else {
-      grunt.task.run([ 'server-dev' ]);              // else (grunt deploy) --> local database / dev environment
+      grunt.task.run([ 'server-dev' ]);
     }
   });
 
   grunt.registerTask('deploy', [
-    'build', 'upload'
+    'test', 'build', 'upload'
   ]);
 
 
