@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+CUSTOMERCONNSTR_MONGOLAB_URI = 'mongodb://shortlyAdmin:shortadmin@ds045097.mongolab.com:45097/shortlyjs';
 mongoURI = process.env.CUSTOMERCONNSTR_MONGOLAB_URI || 'mongodb://localhost/shortlydb';
 mongoose.connect(mongoURI);
 
